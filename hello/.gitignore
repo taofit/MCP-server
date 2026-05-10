@@ -1,0 +1,8 @@
+# Binaries
+hello
+
+# Logs
+*.log
+
+# Go dependencies
+go.sum

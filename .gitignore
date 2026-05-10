@@ -1,9 +1,14 @@
-# Binaries
-weather
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # IDE settings
 .vscode/
 
-# Temporary files and directories
+# Temporary files
 scratch/
-go.sum

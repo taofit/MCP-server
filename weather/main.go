@@ -95,7 +95,7 @@ func formatPeriod(period ForecastPeriod) string {
 	`, period.Name, period.Temperature, period.TemperatureUnit, period.WindSpeed, period.WindDirection, period.DetailedForecast)
 }
 
-func getForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastInput) (*mcp.CallToolResult, any, error) {
+var getForecast mcp.ToolHandlerFor[ForecastInput, any] = func(ctx context.Context, req *mcp.CallToolRequest, input ForecastInput) (*mcp.CallToolResult, any, error) {
 	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
 	defer cancel()
 
@@ -150,7 +150,7 @@ func getForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastIn
 	}, nil, nil
 }
 
-func getAlerts(ctx context.Context, req *mcp.CallToolRequest, input AlertsInput) (*mcp.CallToolResult, any, error) {
+var getAlerts mcp.ToolHandlerFor[AlertsInput, any] = func(ctx context.Context, req *mcp.CallToolRequest, input AlertsInput) (*mcp.CallToolResult, any, error) {
 	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
 	defer cancel()
 
