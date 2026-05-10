@@ -1,9 +1,0 @@
-# Binaries
-weather
-
-# IDE settings
-.vscode/
-
-# Temporary files and directories
-scratch/
-go.sum

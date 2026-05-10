@@ -12,3 +12,13 @@ Thumbs.db
 
 # Temporary files
 scratch/
+
+# Binaries
+hello/hello
+weather/weather
+
+# Logs
+*.log
+
+# Go dependencies
+**/go.sum
