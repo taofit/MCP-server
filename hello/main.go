@@ -53,6 +53,8 @@ func main() {
 		}, nil, nil
 	})
 
+	mcp.AddTool()
+
 	// server.Run runs the server on the given transport.
 	//
 	// In this case, the server communicates over stdin/stdout.

@@ -42,6 +42,7 @@ func main() {
 
 func makeNWSRequest[T any](ctx context.Context, url string) (*T, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req.Header.Add("Accept", "application/geo+json")
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create request: %w", err)
 	}

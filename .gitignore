@@ -14,8 +14,8 @@ Thumbs.db
 scratch/
 
 # Binaries
-hello/hello
-weather/weather
+hello/
+weather/
 
 # Logs
 *.log
