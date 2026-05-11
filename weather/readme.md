@@ -1,28 +1,58 @@
-# Create a new directory for our project
-mkdir weather
-cd weather
+# Weather MCP Server
 
-# Initialize Go module
-go mod init weather
+A Model Context Protocol (MCP) server that provides weather information and alerts for locations within the United States using the National Weather Service (NWS) API.
 
-# Install dependencies
-go get github.com/modelcontextprotocol/go-sdk/mcp
+## Features
 
-# Create our server file
-touch main.go
+- **Get Forecast**: Retrieve a 5-day weather forecast for any US location using latitude and longitude.
+- **Get Alerts**: Check for active weather alerts and warnings in any US state.
 
-# build and run
-go build -o weather .
+## Prerequisites
 
-The compiled binary("./weather") can be placed in any directory and run as an MCP server. For example, if you place it in `/Users/tao/Documents/reboost/repos/go/MCP-server/weather`, you can run it by executing `/Users/tao/Documents/reboost/repos/go/MCP-server/weather`.
+- [Go](https://go.dev/doc/install) (version 1.21 or higher recommended)
+- Internet connection (to access `api.weather.gov`)
 
-In the mcp_config.json, add the following:
+## Setup and Installation
+
+1. Clone the repository and navigate to the `weather` directory:
+   ```bash
+   cd weather
+   ```
+
+2. Initialize the Go module and install dependencies:
+   ```bash
+   go mod init weather
+   go get github.com/modelcontextprotocol/go-sdk/mcp
+   ```
+
+3. Build the server:
+   ```bash
+   go build -o weather .
+   ```
+
+## Configuration
+
+To use this server with an MCP client (like Claude Desktop), add it to your `mcp_config.json`:
 
 ```json
 {
   "mcpServers": {
     "weather": {
-      "command": "/Users/tao/Documents/reboost/repos/go/MCP-server/weather/weather"
+      "command": "/Users/tao/Documents/mcp-servers/weather"
     }
   }
 }
+```
+
+## Tools
+
+### `get_forecast`
+- **Description**: Get weather forecast for a location in the United States.
+- **Arguments**:
+  - `latitude` (number): Latitude of the location.
+  - `longitude` (number): Longitude of the location.
+
+### `get_alerts`
+- **Description**: Get active weather alerts for a US state.
+- **Arguments**:
+  - `state` (string): Two-letter US state code (e.g., "CA", "NY").

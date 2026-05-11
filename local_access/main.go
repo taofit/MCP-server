@@ -10,7 +10,6 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-
 type CreateDirectoryArgs struct {
 	Path string `json:"path"`
 }
@@ -19,12 +18,16 @@ type ListFilesArgs struct {
 	Path string `json:"path"`
 }
 
+type DeleteFileArgs struct {
+	Path string `json:"path"`
+}
+
 type ReadFileArgs struct {
 	Path string `json:"path"`
 }
 
 type WriteFileArgs struct {
-	Path string `json:"path"`
+	Path    string `json:"path"`
 	Content string `json:"content"`
 }
 
@@ -54,9 +57,31 @@ func main() {
 		Description: "create a directory",
 	}, createDirectory)
 
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "delete_file_or_directory",
+		Description: "delete a file or directory. If the directory is not empty, it will not be deleted.",
+	}, deleteFile)
+
 	if err := server.Run(context.Background(), &mcp.StdioTransport{}); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func deleteFile(ctx context.Context, req *mcp.CallToolRequest, args *DeleteFileArgs) (*mcp.CallToolResult, any, error) {
+	err := os.Remove(args.Path)
+	if err != nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{Text: fmt.Sprintf("Error deleting file: %v", err)},
+			},
+		}, nil, nil
+	}
+
+	return &mcp.CallToolResult{
+		Content: []mcp.Content{
+			&mcp.TextContent{Text: fmt.Sprintf("Successfully deleted file: %s", args.Path)},
+		},
+	}, nil, nil
 }
 
 func createDirectory(ctx context.Context, req *mcp.CallToolRequest, args *CreateDirectoryArgs) (*mcp.CallToolResult, any, error) {
@@ -76,7 +101,7 @@ func createDirectory(ctx context.Context, req *mcp.CallToolRequest, args *Create
 	}, nil, nil
 }
 
-func writeFile(ctx context.Context, req *mcp.CallToolRequest, args *WriteFileArgs) (*mcp.CallToolResult, any, error){
+func writeFile(ctx context.Context, req *mcp.CallToolRequest, args *WriteFileArgs) (*mcp.CallToolResult, any, error) {
 	file, err := os.OpenFile(args.Path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return &mcp.CallToolResult{
@@ -118,7 +143,6 @@ func readFile(ctx context.Context, req *mcp.CallToolRequest, args *ReadFileArgs)
 		},
 	}, nil, nil
 }
-
 
 func listFiles(ctx context.Context, req *mcp.CallToolRequest, args *ListFilesArgs) (*mcp.CallToolResult, any, error) {
 	// Read the directory contents

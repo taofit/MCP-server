@@ -53,7 +53,6 @@ func main() {
 		}, nil, nil
 	})
 
-	mcp.AddTool()
 
 	// server.Run runs the server on the given transport.
 	//
