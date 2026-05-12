@@ -16,6 +16,10 @@ Provides secure access to the local filesystem for file and directory operations
 Retrieves weather forecasts and active alerts for US locations using the National Weather Service API.
 - **Tools**: `get_forecast`, `get_alerts`
 
+### 4. [User Management](./user_management)
+Provides user management capabilities backed by a PostgreSQL database, run via Docker Compose to start the database.
+- **Tools**: `list_users`, `get_user`, `add_user`, `delete_user`
+
 ## Prerequisites
 
 - [Go](https://go.dev/doc/install) (version 1.21+)
@@ -33,10 +37,11 @@ Each server is located in its own directory. To build a specific server:
    ```bash
    go build -o <binary_name> .
    ```
+3. save the binary to a directory where your MCP client can access it. For example: /Users/tao/Documents/mcp-servers/ (if you don't have it)
 
 ## Configuration
 
-To use these servers with Claude Desktop or any other MCP client, add them to your configuration file (usually `mcp_config.json` or `claude_desktop_config.json`).
+To use these servers with MCP clients, add them to your configuration file (usually `mcp_config.json` or `claude_desktop_config.json`).
 
 Example configuration:
 
@@ -51,6 +56,9 @@ Example configuration:
     },
     "weather": {
       "command": "/Users/tao/Documents/mcp-servers/weather"
+    },
+    "user-management": {
+      "command": "/Users/tao/Documents/mcp-servers/usermanagement"
     }
   }
 }
