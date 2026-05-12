@@ -175,7 +175,17 @@ func (app *App) seedDatabase() {
 		{Name: "Jane Smith"},
 		{Name: "Bob Johnson"},
 		{Name: "Alice Williams"},
-		{Name: "Charlie Brown"},
+		{Name: "David Lee"},
+		{Name: "Eve Martin"},
+		{Name: "Frank Wilson"},
+		{Name: "Grace Taylor"},
+		{Name: "Henry Anderson"},
+		{Name: "Ivy Thomas"},
+		{Name: "Jack White"},
+		{Name: "Kelly Green"},
+		{Name: "Leo Black"},
+		{Name: "Mia Blue"},
+		{Name: "Noah Red"},
 	}
 	ctx := context.Background()
 	for _, user := range users {
