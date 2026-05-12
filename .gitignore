@@ -22,3 +22,7 @@ weather/
 
 # Go dependencies
 **/go.sum
+
+# Environment variables
+.env
+**/.env
